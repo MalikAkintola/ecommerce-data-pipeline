@@ -105,6 +105,8 @@ CREDENTIALS=(AWS_KEY_ID='AWS_KEY_ID' AWS_SECRET_KEY='AWS_SECRET_KEY')
 FILE_FORMAT = raw.csv_format;
 
 
+
+--Copy data from S3 stage to Snowflake tables
 COPY INTO raw.olist_customers
 FROM @raw.olist_stage/olist_customers_dataset.csv;
 
