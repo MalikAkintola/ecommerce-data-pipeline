@@ -13,3 +13,6 @@ This project builds a production-style data pipeline using the Olist Brazilian E
 - **Snowflake** — data warehouse
 - **dbt** — data transformation (medallion architecture)
 - **Power BI** — analytics & dashboarding
+
+## Dataset
+[Olist Brazilian E-Commerce Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
