@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 with stg_customers as (
     select 
         customer_id,
@@ -5,7 +7,7 @@ with stg_customers as (
         zip_code,
         city,
         state
-    from {{ source('staging', 'customers') }}
+    from {{ ref('stg_customers') }}
 ), stg_geolocation as 
     (select 
         zip_code,
@@ -13,7 +15,8 @@ with stg_customers as (
         longitude,
         city,
         state
-    from {{ source('staging', 'geolocation') }})
+    from {{ ref('stg_geolocation') }}
+)
 select 
         c.customer_id,
         c.customer_unique_id,
@@ -23,4 +26,4 @@ select
         g.latitude
 from stg_customers c
 left join stg_geolocation g
-on c.city = g.city
+on c.city = g.city and c.state = g.state
