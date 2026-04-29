@@ -2,14 +2,13 @@
 
 with stg_customers as (
     select 
-    seller_id,
-    zip_code,
-    city,
-    state
+        seller_id,
+        zip_code,
+        city,
+        state
     from {{ ref('stg_sellers') }}
 ), stg_geolocation as 
     (select 
-        zip_code,
         latitude,
         longitude,
         city,
@@ -20,7 +19,7 @@ select
         s.seller_id,
         s.zip_code,
         s.city,
-        s.state
+        s.state,
         g.longitude,
         g.latitude
 from stg_sellers s
