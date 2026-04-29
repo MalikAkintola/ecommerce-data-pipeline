@@ -9,8 +9,7 @@ with stg_customers as (
         state
     from {{ ref('stg_customers') }}
 ), stg_geolocation as 
-    (select 
-        zip_code,
+    (select
         latitude,
         longitude,
         city,
