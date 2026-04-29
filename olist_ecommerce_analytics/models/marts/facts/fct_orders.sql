@@ -14,14 +14,6 @@ with stg_orders as (
         estimated_delivery_days,
         is_delivered_on_time
     from {{ ref('stg_orders') }}
-), stg_orders_payments as (
-    select 
-        order_id,
-        payment_type,
-        payment_installments,
-        payment_value,
-        is_installment
-    from {{ ref('stg_order_payments') }}
 ), order_items_agg as(
     select 
         order_id,
@@ -36,7 +28,8 @@ orders_payments_agg as(
     select 
         order_id,
         sum(payment_value) as total_payment_value,
-        MAX(payment_installments) as max_payment_installments
+        MAX(payment_installments) as max_payment_installments,
+        mode(payment_type) as most_used_payment_type
     from {{ ref('stg_order_payments') }}
     group by order_id
 )
@@ -64,6 +57,7 @@ select
 
     op.max_payment_installments,
     op.total_payment_value,
+    op.most_used_payment_type,
 
     oi.total_items,
     oi.total_items_value,
